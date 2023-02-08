@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,9 +21,23 @@ public class Contact {
     private String firstname;
     private String lastname;
     private String email;
-    private String pictures;
+    private String picture;
     private String phone;
     private LocalDate birthday;
-    @ManyToMany(mappedBy = "contacts")
-    private List<Affiliate> affiliates;
+    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL)
+    private List<ContactAffiliate> contactAffiliates = new ArrayList<>();
+
+    public Contact(User user, String firstname, String lastname, String email, String picture, String phone, LocalDate birthday) {
+        this.user = user;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.picture = picture;
+        this.phone = phone;
+        this.birthday = birthday;
+    }
+
+    public void addContactAffiliate(ContactAffiliate contactAffiliate) {
+        contactAffiliates.add(contactAffiliate);
+    }
 }
