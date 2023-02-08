@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Contact {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "user_id")
