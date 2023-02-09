@@ -2,6 +2,7 @@ package fr.dawan.projet_spring_mvc.services;
 
 import fr.dawan.projet_spring_mvc.dto.ContactDTO;
 import fr.dawan.projet_spring_mvc.entities.Contact;
+import fr.dawan.projet_spring_mvc.repositories.ContactAffilateRepository;
 import fr.dawan.projet_spring_mvc.repositories.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -16,12 +17,16 @@ public class ContactService {
     @Autowired
     private ContactRepository contactRepository;
 
+    @Autowired
+    private ContactAffiliateService contactAffiliateService;
+
     public List<ContactDTO> getAll() {
         return convertListFromEntities(contactRepository.findAll());
     }
 
     public void delete(Long id) {
         Contact contact = contactRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Contact not found with id " + id));
+        contactAffiliateService.deleteByContactId(contact.getId());
         contactRepository.delete(contact);
     }
 
