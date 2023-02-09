@@ -5,10 +5,7 @@ import fr.dawan.projet_spring_mvc.services.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,9 +23,6 @@ public class ContactController {
         return "display-contact";
     }
 
-
-
-
    // POST FORM TO ADD CONTACT
     @GetMapping("/addContact")
     public String displayAddContactForm(Model model){
@@ -39,10 +33,16 @@ public class ContactController {
         return "add-contact";
     }
 
-
     @PostMapping(path="/addContact") // Map ONLY POST Requests
     public String contactSubmitted(@ModelAttribute ContactDTO contactDTO) {
         contactService.save(contactDTO);
         return "redirect:/contact/display-contact";
+    }
+
+    @PostMapping(path = "/delete")
+    public String delete(@ModelAttribute ContactDTO contactDTO) {
+        System.out.println(contactDTO);
+        //contactService.delete(id);
+        return "redirect:/contact/getAll";
     }
 }
