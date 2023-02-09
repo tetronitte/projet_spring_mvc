@@ -59,10 +59,10 @@ public class FakerInit implements CommandLineRunner {
     }
 
     private void insertContact() {
-        contacts.add(new Contact(user,faker.name().firstName(),faker.name().lastName(),faker.internet().emailAddress(),"osef.png",faker.phoneNumber().cellPhone(),LocalDate.of(1995, 5, 20)));
-        contacts.add(new Contact(user,faker.name().firstName(),faker.name().lastName(),faker.internet().emailAddress(),"osef.png",faker.phoneNumber().cellPhone(),LocalDate.of(1993, 2, 12)));
-        contacts.add(new Contact(user,faker.name().firstName(),faker.name().lastName(),faker.internet().emailAddress(),"osef.png",faker.phoneNumber().cellPhone(),LocalDate.of(1970, 12, 29)));
-        contacts.add(new Contact(user,faker.name().firstName(),faker.name().lastName(),faker.internet().emailAddress(),"osef.png",faker.phoneNumber().cellPhone(),LocalDate.of(1972, 10, 30)));
+        contacts.add(new Contact(user,faker.name().firstName(),faker.name().lastName(),faker.internet().emailAddress(),"https://picsum.photos/seed/200/300",faker.phoneNumber().cellPhone(),LocalDate.of(1995, 5, 20)));
+        contacts.add(new Contact(user,faker.name().firstName(),faker.name().lastName(),faker.internet().emailAddress(),"https://picsum.photos/seed/200/300",faker.phoneNumber().cellPhone(),LocalDate.of(1993, 2, 12)));
+        contacts.add(new Contact(user,faker.name().firstName(),faker.name().lastName(),faker.internet().emailAddress(),"https://picsum.photos/seed/200/300",faker.phoneNumber().cellPhone(),LocalDate.of(1970, 12, 29)));
+        contacts.add(new Contact(user,faker.name().firstName(),faker.name().lastName(),faker.internet().emailAddress(),"https://picsum.photos/seed/200/300",faker.phoneNumber().cellPhone(),LocalDate.of(1972, 10, 30)));
         contactRepository.saveAll(contacts);
     }
 
@@ -93,7 +93,7 @@ public class FakerInit implements CommandLineRunner {
         user.setLastname(faker.name().lastName());
         user.setEmail(user.getFirstname()+user.getLastname()+"@example.com");
         user.setPassword("aaAA11@@");
-        user.setPictures("./pictures/pp.png");
+        user.setPictures("https://picsum.photos/seed/200/300");
         userRepository.save(user);
     }
 }
