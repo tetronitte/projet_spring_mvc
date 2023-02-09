@@ -34,6 +34,16 @@ public class ContactService {
         return convertListFromEntities(contactRepository.findByFirstnameContainingOrLastnameContainingOrEmailContainingOrPhoneContaining(search,search,search,search));
     }
 
+    // GET A SINGLE CONTACT BY ITS ID
+    public ContactDTO getById(Long id)
+    {
+
+        Contact contact = contactRepository.getById(id);
+
+        return ContactDTO.convertFromEntity(contact);
+    }
+
+
     public ContactDTO save(ContactDTO contactDTO){
         return ContactDTO.convertFromEntity(contactRepository.save(Contact.ConvertFromDTO(contactDTO)));
     }

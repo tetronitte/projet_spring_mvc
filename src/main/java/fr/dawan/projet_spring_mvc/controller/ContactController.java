@@ -23,6 +23,26 @@ public class ContactController {
         return "display-contact";
     }
 
+    // GET A SINGLE CONTACT VIEW PAGE
+    @GetMapping(path = "/getContact/{id}")
+    public String getById(Model model, @PathVariable Long id) {
+        ContactDTO contact = contactService.getById(id);
+        model.addAttribute("contact", contact);
+        return "contact-detail-view";
+    }
+
+    // EDIT A SINGLE CONTACT
+    @GetMapping(path = "/editContact/{id}")
+    public String editById(Model model, @PathVariable String id) {
+        ContactDTO contact = contactService.getById(Long.parseLong(id));
+        model.addAttribute("contact", contact);
+        return "edit-contact";
+    }
+
+
+
+
+
     @PostMapping(path = "/getAll")
     public String search(@RequestParam String search, Model model) {
         List<ContactDTO> contacts = contactService.getSearch(search);
