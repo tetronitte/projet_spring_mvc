@@ -31,6 +31,17 @@ public class ContactController {
         return "contact-detail-view";
     }
 
+    // EDIT A SINGLE CONTACT
+    @GetMapping(path = "/editContact/{id}")
+    public String editById(Model model, @PathVariable String id) {
+        ContactDTO contact = contactService.getById(Long.parseLong(id));
+        model.addAttribute("contact", contact);
+        return "edit-contact";
+    }
+
+
+
+
 
     @PostMapping(path = "/getAll")
     public String search(@RequestParam String search, Model model) {
