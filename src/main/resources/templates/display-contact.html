@@ -7,26 +7,22 @@
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"/>
 </head>
 <body>
-<!--    <form action="#" th:action="@{/contact/search}" method="post">-->
-<!--        <div class="input-group" style="width: 400px;">-->
-<!--            <div class="form-outline">-->
-<!--                <input aria-describedby="basic-addon1" aria-label="Search" class="form-control" name="search" placeholder="Search" type="text">-->
-<!--            </div>-->
-<!--            <input type="submit" class="btn-btn-primary" value="search"/>-->
-<!--        </div>-->
-<!--    </form>-->
-    <div th:each="contact : ${contacts}" class="card" style="width: 18rem; border: 1px solid black;">
-        <div class="card-body">
+<div th:each="contact : ${contacts}" class="card" style="width: 18rem; border: 1px solid black;">
+    <div class="card-body">
+        <form th:action="@{/contact/delete}" th:object="${contactDTO}" method="post">
             <img th:src="${contact.picture}" class="card-img-top" alt="" />
             <h5 class="card-title" th:text="${contact.firstname}+' '+${contact.lastname}"></h5>
             <p class="card-text" th:text="${contact.email}"></p>
             <p class="card-text" th:text="${contact.phone}"></p>
             <p class="card-text" th:text="${#temporals.format(contact.birthday, 'dd/MM/yyyy')}"></p>
-
             <div th:each="contactAffiliate : ${contact.contactAffiliateList}">
                 <a class="card-text" th:utext="${contactAffiliate.contactAffiliated.firstname}+' '+${contactAffiliate.contactAffiliated.lastname}+' - '+${contactAffiliate.affiliate.affiliate}"></a>
             </div>
-        </div>
+            <div class="input-group" style="width: 400px;">
+                <input type="submit" class="btn-btn-danger" value="delete"/>
+            </div>
+        </form>
     </div>
+</div>
 </body>
 </html>
