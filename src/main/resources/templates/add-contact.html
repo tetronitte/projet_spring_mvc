@@ -10,6 +10,7 @@
 <body>
 <section class="h-100 h-custom gradient-custom-2">
   <div class="container py-5 h-100">
+    <form action="#" th:action="@{/contact/addContact}" th:object="${contact}" method="post">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-12">
         <div class="card card-registration card-registration-2" style="border-radius: 15px;">
@@ -17,15 +18,16 @@
             <div class="row g-0">
               <div class="col-lg-6">
                 <div class="p-5">
-                  <h3 class="fw-normal mb-5" style="color: #4835d4;">General Infomation</h3>
+                  <h3 class="fw-normal mb-5" style="color: #4835d4;">General Information</h3>
 
 
 <!--TODO: renvoyer le contactDTO une fois le thymeleaf mis en place-->
+
                   <div class="row">
                     <div class="col-md-6 mb-4 pb-2">
 
                       <div class="form-outline">
-                        <input type="text" id="firstname" class="form-control form-control-lg" />
+                        <input type="text" th:field="*{firstname}"  id="firstname" class="form-control form-control-lg" />
                         <label class="form-label" for="firstname">First name</label>
                       </div>
 
@@ -33,7 +35,7 @@
                     <div class="col-md-6 mb-4 pb-2">
 
                       <div class="form-outline">
-                        <input type="text" id="lastname" class="form-control form-control-lg" />
+                        <input type="text" th:field="*{lastname}" id="lastname" class="form-control form-control-lg" />
                         <label class="form-label" for="lastname">Last name</label>
                       </div>
 
@@ -43,7 +45,7 @@
 
                   <div class="mb-4 pb-2">
                     <div class="form-outline">
-                      <input type="tel" id="phone" class="form-control form-control-lg" />
+                      <input type="tel" th:field="*{phone} "id="phone" class="form-control form-control-lg" />
                       <label class="form-label" for="phone">Phone Number</label>
                     </div>
                   </div>
@@ -54,7 +56,7 @@
                       <form>
                         <div class="form-group">
                           <label for="picture"> Add a picture</label>
-                          <input type="file" class="form-control-file" id="picture">
+                          <input type="file" class="form-control-file" th:field="*{picture}" id="picture">
                         </div>
                       </form>
 
@@ -70,10 +72,17 @@
 
                   <div class="mb-4 pb-2">
                     <div class="form-outline form-white">
-                      <input type="date" id="birthdate" name="birthdate"
+                      <input type="date"  th:field="*{birthday}" id="birthdate" name="birthdate"
                              value="1900-01-01"
                              min="1900-01-01" max="2023-02-01">
                       <label class="form-label" for="birthdate">Birth Date</label>
+                    </div>
+                  </div>
+
+                  <div class="mb-4 pb-2">
+                    <div class="form-outline form-white">
+                      <input type="email" th:field="*{email}" id="email" class="form-control form-control-lg" />
+                      <label class="form-label" for="notes">Email</label>
                     </div>
                   </div>
 
@@ -84,7 +93,7 @@
                     </div>
                   </div>
 
-                  <button type="button" class="btn btn-light btn-lg"
+                  <button type="submit" class="btn btn-light btn-lg"
                           data-mdb-ripple-color="yellow">Register</button>
 
                 </div>
@@ -92,8 +101,10 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
+    </form>
   </div>
 </section>
 
