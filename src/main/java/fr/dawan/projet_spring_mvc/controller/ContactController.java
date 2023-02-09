@@ -23,6 +23,15 @@ public class ContactController {
         return "display-contact";
     }
 
+    // GET A SINGLE CONTACT VIEW PAGE
+    @GetMapping(path = "/getContact/{id}")
+    public String getById(Model model, @PathVariable Long id) {
+        ContactDTO contact = contactService.getById(id);
+        model.addAttribute("contact", contact);
+        return "contact-detail-view";
+    }
+
+
     @PostMapping(path = "/getAll")
     public String search(@RequestParam String search, Model model) {
         List<ContactDTO> contacts = contactService.getSearch(search);
