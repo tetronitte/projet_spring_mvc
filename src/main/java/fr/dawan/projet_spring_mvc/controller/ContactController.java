@@ -23,6 +23,13 @@ public class ContactController {
         return "display-contact";
     }
 
+    @PostMapping(path = "/getAll")
+    public String search(@RequestParam String search, Model model) {
+        List<ContactDTO> contacts = contactService.getSearch(search);
+        model.addAttribute("contacts", contacts);
+        return "display-contact";
+    }
+
    // POST FORM TO ADD CONTACT
     @GetMapping("/addContact")
     public String displayAddContactForm(Model model){
