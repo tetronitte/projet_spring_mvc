@@ -47,9 +47,8 @@ public class ContactController {
     }
 
     @PostMapping(path = "/delete")
-    public String delete(@ModelAttribute ContactDTO contactDTO) {
-        System.out.println(contactDTO);
-        //contactService.delete(id);
+    public String delete(@RequestParam("contact") Long id) {
+        contactService.delete(id);
         return "redirect:/contact/getAll";
     }
 }
