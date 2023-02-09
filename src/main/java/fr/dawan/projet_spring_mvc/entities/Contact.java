@@ -1,5 +1,6 @@
 package fr.dawan.projet_spring_mvc.entities;
 
+import fr.dawan.projet_spring_mvc.dto.ContactDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,5 +40,20 @@ public class Contact {
 
     public void addContactAffiliate(ContactAffiliate contactAffiliate) {
         contactAffiliates.add(contactAffiliate);
+    }
+
+
+    //convert DTO to Entity
+    public static Contact ConvertFromDTO(ContactDTO contactDTO) {
+        Contact contact = new Contact();
+        contact.setId(contactDTO.getId());
+        contact.setFirstname(contactDTO.getFirstname());
+        contact.setLastname(contactDTO.getLastname());
+        contact.setBirthday(contactDTO.getBirthday());
+        contact.setPhone(contactDTO.getPhone());
+        contact.setEmail(contactDTO.getEmail());
+        contact.setUser(contactDTO.getUser());
+        contact.setContactAffiliates(contactDTO.getContactAffiliateList());
+        return contact;
     }
 }

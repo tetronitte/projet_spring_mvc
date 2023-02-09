@@ -16,25 +16,5 @@ public class UserController {
 
 
 
-    @GetMapping("/addContact")
-    public String displayAddContactForm(Model model){
 
-        ContactDTO contactDTO = new ContactDTO();
-        model.addAttribute("contact", contactDTO);
-
-        return "addcontact";
-    }
-
-
-    @PostMapping(path="/addContact") // Map ONLY POST Requests
-    public String contactSubmitted(ContactDTO contactDTO) {
-        contactDTO.setFirstname();
-        contactDTO.setLastname();
-        contactDTO.setEmail();
-        contactDTO.setPicture();
-        contactDTO.setPhone();
-        contactDTO.setBirthday();
-        championService.save(championDTO);
-        return "redirect:/contact/display-contact";
-    }
 }

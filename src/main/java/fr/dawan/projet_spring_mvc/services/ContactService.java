@@ -19,6 +19,13 @@ public class ContactService {
         return convertListFromEntities(contactRepository.findAll());
     }
 
+
+    // TODO: save method
+    public ContactDTO save(ContactDTO contactDTO){
+        return ContactDTO.convertFromEntity(contactRepository.save(Contact.ConvertFromDTO(contactDTO)));
+    }
+
+
     private List<ContactDTO> convertListFromEntities(List<Contact> contactList) {
         return contactList
                 .stream()
