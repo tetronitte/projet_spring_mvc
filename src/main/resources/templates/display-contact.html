@@ -20,8 +20,9 @@
             <img th:src="${contact.picture}" class="card-img-top" alt="" />
             <h5 class="card-title" th:text="${contact.firstname}+' '+${contact.lastname}"></h5>
             <p class="card-text" th:text="${contact.email}"></p>
+            <p class="card-text" th:text="${contact.phone}"></p>
             <p class="card-text" th:text="${#temporals.format(contact.birthday, 'dd/MM/yyyy')}"></p>
-            <p class="card-text" th:text="${contact.email}"></p>
+
             <div th:each="contactAffiliate : ${contact.contactAffiliateList}">
                 <a class="card-text" th:utext="${contactAffiliate.contactAffiliated.firstname}+' '+${contactAffiliate.contactAffiliated.lastname}+' - '+${contactAffiliate.affiliate.affiliate}"></a>
             </div>

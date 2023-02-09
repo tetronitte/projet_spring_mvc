@@ -43,6 +43,6 @@ public class ContactController {
     @PostMapping(path="/addContact") // Map ONLY POST Requests
     public String contactSubmitted(@ModelAttribute ContactDTO contactDTO) {
         contactService.save(contactDTO);
-        return "redirect:/contact/display-contact";
+        return "redirect:/contact/getAll";
     }
 }
