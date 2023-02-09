@@ -25,6 +25,10 @@ public class ContactService {
         contactRepository.delete(contact);
     }
 
+    public List<ContactDTO> getSearch(String search) {
+        return convertListFromEntities(contactRepository.findByFirstnameContainingOrLastnameContainingOrEmailContainingOrPhoneContaining(search,search,search,search));
+    }
+
     public ContactDTO save(ContactDTO contactDTO){
         return ContactDTO.convertFromEntity(contactRepository.save(Contact.ConvertFromDTO(contactDTO)));
     }
