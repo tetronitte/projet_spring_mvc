@@ -25,7 +25,7 @@ public class Contact {
     private String picture;
     private String phone;
     private LocalDate birthday;
-    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "contact")
     private List<ContactAffiliate> contactAffiliates = new ArrayList<>();
 
     public Contact(User user, String firstname, String lastname, String email, String picture, String phone, LocalDate birthday) {
