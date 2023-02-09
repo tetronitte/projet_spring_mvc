@@ -7,6 +7,14 @@
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"/>
 </head>
 <body>
+<form action="#" th:action="@{/contact/getAll}" method="post">
+    <div class="input-group" style="width: 400px;">
+        <div class="form-outline">
+            <input aria-describedby="basic-addon1" aria-label="Search" class="form-control" name="search" placeholder="Search" type="text">
+        </div>
+        <input type="submit" class="btn-btn-primary" value="search"/>
+    </div>
+</form>
 <div th:each="contact : ${contacts}" class="card" style="width: 18rem; border: 1px solid black;">
     <div class="card-body">
         <form th:action="@{/contact/delete}" th:object="${contactDTO}" method="post">
