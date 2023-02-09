@@ -17,16 +17,17 @@
 </form>
 <div th:each="contact : ${contacts}" class="card" style="width: 18rem; border: 1px solid black;">
     <div class="card-body">
-        <form th:action="@{/contact/delete}" th:object="${contactDTO}" method="post">
-            <img th:src="${contact.picture}" class="card-img-top" alt="" />
-            <h5 class="card-title" th:text="${contact.firstname}+' '+${contact.lastname}"></h5>
-            <p class="card-text" th:text="${contact.email}"></p>
-            <p class="card-text" th:text="${contact.phone}"></p>
-            <p class="card-text" th:text="${#temporals.format(contact.birthday, 'dd/MM/yyyy')}"></p>
-            <div th:each="contactAffiliate : ${contact.contactAffiliateList}">
-                <a class="card-text" th:utext="${contactAffiliate.contactAffiliated.firstname}+' '+${contactAffiliate.contactAffiliated.lastname}+' - '+${contactAffiliate.affiliate.affiliate}"></a>
-            </div>
+        <img th:src="${contact.picture}" class="card-img-top" alt="" />
+        <h5 class="card-title" th:text="${contact.firstname}+' '+${contact.lastname}"></h5>
+        <p class="card-text" th:text="${contact.email}"></p>
+        <p class="card-text" th:text="${contact.phone}"></p>
+        <p class="card-text" th:text="${#temporals.format(contact.birthday, 'dd/MM/yyyy')}"></p>
+        <div th:each="contactAffiliate : ${contact.contactAffiliateList}">
+            <a class="card-text" th:utext="${contactAffiliate.contactAffiliated.firstname}+' '+${contactAffiliate.contactAffiliated.lastname}+' - '+${contactAffiliate.affiliate.affiliate}"></a>
+        </div>
+        <form th:action="@{/contact/delete}" method="post">
             <div class="input-group" style="width: 400px;">
+                <input type="hidden" name="contact" th:value="${contact.id}"/>
                 <input type="submit" class="btn-btn-danger" value="delete"/>
             </div>
         </form>
