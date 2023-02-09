@@ -3,6 +3,7 @@ package fr.dawan.projet_spring_mvc.tools;
 import fr.dawan.projet_spring_mvc.entities.*;
 import com.github.javafaker.Faker;
 import fr.dawan.projet_spring_mvc.repositories.AffiliateRepository;
+import fr.dawan.projet_spring_mvc.repositories.ContactAffilateRepository;
 import fr.dawan.projet_spring_mvc.repositories.ContactRepository;
 import fr.dawan.projet_spring_mvc.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -20,15 +21,18 @@ public class FakerInit implements CommandLineRunner {
     private final UserRepository userRepository;
     private final AffiliateRepository affiliateRepository;
     private final ContactRepository contactRepository;
+    private final ContactAffilateRepository contactAffilateRepository;
     private final Faker faker = new Faker(new Locale("fr"), new Random(2));
     private List<Affiliate> affiliates = new ArrayList<>();
     private List<Contact> contacts = new ArrayList<>();
+    private List<ContactAffiliate> contactAffiliates = new ArrayList<>();
     private User user = new User();
 
-    public FakerInit(UserRepository userRepository, AffiliateRepository affiliateRepository, ContactRepository contactRepository) {
+    public FakerInit(UserRepository userRepository, AffiliateRepository affiliateRepository, ContactRepository contactRepository, ContactAffilateRepository contactAffilateRepository) {
         this.userRepository = userRepository;
         this.affiliateRepository = affiliateRepository;
         this.contactRepository = contactRepository;
+        this.contactAffilateRepository = contactAffilateRepository;
     }
     @Override
     public void run(String... args) throws Exception {
@@ -39,23 +43,23 @@ public class FakerInit implements CommandLineRunner {
     }
 
     private void insertContactAffiliate() {
-        contacts.get(0).addContactAffiliate(createContactAffiliate(contacts.get(0),contacts.get(1),affiliates.get(3)));
-        contacts.get(0).addContactAffiliate(createContactAffiliate(contacts.get(0),contacts.get(2),affiliates.get(1)));
-        contacts.get(0).addContactAffiliate(createContactAffiliate(contacts.get(0),contacts.get(3),affiliates.get(0)));
+        contactAffiliates.add(new ContactAffiliate(contacts.get(0),contacts.get(1),affiliates.get(3)));
+        contactAffiliates.add(new ContactAffiliate(contacts.get(0),contacts.get(2),affiliates.get(1)));
+        contactAffiliates.add(new ContactAffiliate(contacts.get(0),contacts.get(3),affiliates.get(0)));
 
-        contacts.get(1).addContactAffiliate(createContactAffiliate(contacts.get(1),contacts.get(0),affiliates.get(2)));
-        contacts.get(1).addContactAffiliate(createContactAffiliate(contacts.get(1),contacts.get(2),affiliates.get(1)));
-        contacts.get(1).addContactAffiliate(createContactAffiliate(contacts.get(1),contacts.get(3),affiliates.get(0)));
+        contactAffiliates.add(new ContactAffiliate(contacts.get(1),contacts.get(0),affiliates.get(2)));
+        contactAffiliates.add(new ContactAffiliate(contacts.get(1),contacts.get(2),affiliates.get(1)));
+        contactAffiliates.add(new ContactAffiliate(contacts.get(1),contacts.get(3),affiliates.get(0)));
 
-        contacts.get(2).addContactAffiliate(createContactAffiliate(contacts.get(2),contacts.get(3),affiliates.get(13)));
-        contacts.get(2).addContactAffiliate(createContactAffiliate(contacts.get(2),contacts.get(0),affiliates.get(4)));
-        contacts.get(2).addContactAffiliate(createContactAffiliate(contacts.get(2),contacts.get(1),affiliates.get(5)));
+        contactAffiliates.add(new ContactAffiliate(contacts.get(2),contacts.get(3),affiliates.get(13)));
+        contactAffiliates.add(new ContactAffiliate(contacts.get(2),contacts.get(0),affiliates.get(4)));
+        contactAffiliates.add(new ContactAffiliate(contacts.get(2),contacts.get(1),affiliates.get(5)));
 
-        contacts.get(3).addContactAffiliate(createContactAffiliate(contacts.get(3),contacts.get(2),affiliates.get(12)));
-        contacts.get(3).addContactAffiliate(createContactAffiliate(contacts.get(3),contacts.get(0),affiliates.get(4)));
-        contacts.get(3).addContactAffiliate(createContactAffiliate(contacts.get(3),contacts.get(1),affiliates.get(5)));
+        contactAffiliates.add(new ContactAffiliate(contacts.get(3),contacts.get(2),affiliates.get(12)));
+        contactAffiliates.add(new ContactAffiliate(contacts.get(3),contacts.get(0),affiliates.get(4)));
+        contactAffiliates.add(new ContactAffiliate(contacts.get(3),contacts.get(1),affiliates.get(5)));
 
-        contactRepository.saveAll(contacts);
+        contactAffilateRepository.saveAll(contactAffiliates);
     }
 
     private void insertContact() {
