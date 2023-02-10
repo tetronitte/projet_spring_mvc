@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -30,6 +31,7 @@ public class ContactDTO {
     private String phone;
     private LocalDate birthday;
     private List<ContactAffiliate> contactAffiliateList;
+    private MultipartFile pictureFile;
 
     public static ContactDTO convertFromEntity(Contact contact) {
         ContactDTO contactDTO = new ContactDTO();

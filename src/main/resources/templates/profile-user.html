@@ -22,7 +22,7 @@
             <div class="col-lg-4">
                 <div class="card mb-4">
                     <div class="card-body text-center">
-                        <img th:src="${user.getPicture}" alt="avatar"
+                        <img th:src="${'/pictures/'+user.picture}" alt="avatar"
                              class="rounded-circle img-fluid" style="width: 200px;">
                         <h5 class="my-3" th:text="${user.firstname}+' '+${user.lastname}"></h5>
                         <div class="d-flex justify-content-center mb-2">
