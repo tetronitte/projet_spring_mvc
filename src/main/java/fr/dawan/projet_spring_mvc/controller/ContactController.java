@@ -28,6 +28,16 @@ public class ContactController {
         return "display-contact";
     }
 
+    @PostMapping(path = "/getAll")
+    public String search(@RequestParam String search, Model model, HttpSession session) {
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if(user == null) return "redirect:/user/login";
+        List<ContactDTO> contacts = contactService.getSearch(search);
+        contacts.stream().forEach(c -> System.out.println(c.getPicture()));
+        model.addAttribute("contacts", contacts);
+        return "display-contact";
+    }
+
     // GET A SINGLE CONTACT VIEW PAGE
     @GetMapping(path = "/getContact/{id}")
     public String getById(Model model, @PathVariable Long id, HttpSession session) {
@@ -56,22 +66,12 @@ public class ContactController {
         return "redirect:/contact/getAll";
     }
 
-    @PostMapping(path = "/getAll")
-    public String search(@RequestParam String search, Model model, HttpSession session) {
-        UserDTO user = (UserDTO) session.getAttribute("user");
-        if(user == null) return "redirect:/user/login";
-        List<ContactDTO> contacts = contactService.getSearch(search);
-        model.addAttribute("contacts", contacts);
-        return "display-contact";
-    }
-
    // POST FORM TO ADD CONTACT
     @GetMapping("/addContact")
     public String displayAddContactForm(Model model, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
         if(user == null) return "redirect:/user/login";
-        ContactDTO contactDTO = new ContactDTO();
-        model.addAttribute("contact", contactDTO);
+        model.addAttribute("contact", new ContactDTO());
         return "add-contact";
     }
 
@@ -80,6 +80,7 @@ public class ContactController {
         UserDTO user = (UserDTO) session.getAttribute("user");
         if(user == null) return "redirect:/user/login";
         contactDTO.setUser(User.convertFromDTO(user));
+        if (contactDTO.getPicture().equals("")) contactDTO.setPicture(contactService.randomPicture());
         contactService.save(contactDTO);
         return "redirect:/contact/getAll";
     }

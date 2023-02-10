@@ -34,6 +34,7 @@ public class DataLoader implements CommandLineRunner {
     private List<Contact> contacts = new ArrayList<>();
     private List<ContactAffiliate> contactAffiliates = new ArrayList<>();
     private User user = new User();
+    private Random rd = new Random();
 
     @Override
     public void run(String... args) throws Exception {
@@ -64,10 +65,10 @@ public class DataLoader implements CommandLineRunner {
     }
 
     private void insertContact() {
-        contacts.add(new Contact(user,faker.name().firstName(),faker.name().lastName(),faker.internet().emailAddress(),"https://picsum.photos/seed/200/300",faker.phoneNumber().cellPhone(),LocalDate.of(1995, 5, 20)));
-        contacts.add(new Contact(user,faker.name().firstName(),faker.name().lastName(),faker.internet().emailAddress(),"https://picsum.photos/seed/200/300",faker.phoneNumber().cellPhone(),LocalDate.of(1993, 2, 12)));
-        contacts.add(new Contact(user,faker.name().firstName(),faker.name().lastName(),faker.internet().emailAddress(),"https://picsum.photos/seed/200/300",faker.phoneNumber().cellPhone(),LocalDate.of(1970, 12, 29)));
-        contacts.add(new Contact(user,faker.name().firstName(),faker.name().lastName(),faker.internet().emailAddress(),"https://picsum.photos/seed/200/300",faker.phoneNumber().cellPhone(),LocalDate.of(1972, 10, 30)));
+        contacts.add(new Contact(user,faker.name().firstName(),faker.name().lastName(),faker.internet().emailAddress(),"https://picsum.photos/seed/"+rd.nextInt(1085)+"/200/300",faker.phoneNumber().cellPhone(),LocalDate.of(1995, 5, 20)));
+        contacts.add(new Contact(user,faker.name().firstName(),faker.name().lastName(),faker.internet().emailAddress(),"https://picsum.photos/seed/"+rd.nextInt(1085)+"/200/300",faker.phoneNumber().cellPhone(),LocalDate.of(1993, 2, 12)));
+        contacts.add(new Contact(user,faker.name().firstName(),faker.name().lastName(),faker.internet().emailAddress(),"https://picsum.photos/seed/"+rd.nextInt(1085)+"/200/300",faker.phoneNumber().cellPhone(),LocalDate.of(1970, 12, 29)));
+        contacts.add(new Contact(user,faker.name().firstName(),faker.name().lastName(),faker.internet().emailAddress(),"https://picsum.photos/seed/"+rd.nextInt(1085)+"/200/300",faker.phoneNumber().cellPhone(),LocalDate.of(1972, 10, 30)));
         contactRepository.saveAll(contacts);
     }
 
@@ -94,7 +95,7 @@ public class DataLoader implements CommandLineRunner {
         user.setLastname("Bonisseur De La Bath");
         user.setEmail("hubert.bdlb@example.com");
         user.setPassword(passwordHasher.encode("aaAA11@@"));
-        user.setPicture("https://picsum.photos/seed/200/300");//
+        user.setPicture("https://picsum.photos/seed/"+rd.nextInt(1085)+"/200/300");//
         userRepository.save(user);
     }
 }

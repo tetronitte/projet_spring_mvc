@@ -26,12 +26,13 @@ public class ContactDTO {
     public static ContactDTO convertFromEntity(Contact contact) {
         ContactDTO contactDTO = new ContactDTO();
         contactDTO.setId(contact.getId());
+        contactDTO.setUser(contact.getUser());
         contactDTO.setFirstname(contact.getFirstname());
         contactDTO.setLastname(contact.getLastname());
-        contactDTO.setBirthday(contact.getBirthday());
-        contactDTO.setPhone(contact.getPhone());
+        contactDTO.setPicture(contact.getPicture());
         contactDTO.setEmail(contact.getEmail());
-        contactDTO.setUser(contact.getUser());
+        contactDTO.setPhone(contact.getPhone());
+        contactDTO.setBirthday(contact.getBirthday());
         contactDTO.setContactAffiliateList(contact.getContactAffiliates());
         return contactDTO;
     }

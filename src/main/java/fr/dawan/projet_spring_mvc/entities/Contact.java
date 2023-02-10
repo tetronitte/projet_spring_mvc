@@ -53,6 +53,7 @@ public class Contact {
         contact.setPhone(contactDTO.getPhone());
         contact.setEmail(contactDTO.getEmail());
         contact.setUser(contactDTO.getUser());
+        contact.setPicture(contactDTO.getPicture());
         contact.setContactAffiliates(contactDTO.getContactAffiliateList());
         return contact;
     }
