@@ -17,10 +17,10 @@ public class UserDTO {
 
     private Long id;
     @NotBlank
-    @Pattern(regexp = "^[\\s,.'\\-\\pL]+$", message = "Firstname eror")
+    @Pattern(regexp = "^[\\s,.'\\-\\pL]+$", message = "Firstname error")
     private String firstname;
     @NotBlank
-    @Pattern(regexp = "^[\\s,.'\\-\\pL]+$", message = "Firstname eror")
+    @Pattern(regexp = "^[\\s,.'\\-\\pL]+$", message = "Lastname error")
     private String lastname;
     @NotBlank
     @Pattern(regexp = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$", message = "email not valid")
