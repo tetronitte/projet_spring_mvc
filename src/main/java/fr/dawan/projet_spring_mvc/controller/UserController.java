@@ -19,6 +19,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    //TODO: remove this test navbar after including it on each view
+    @GetMapping("/navbar")
+    public String navbar(){
+        return "navbar";
+    }
+
     @GetMapping("/addUser")
     public String displayAddUserForm(Model model, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
