@@ -15,7 +15,7 @@ public class UserDTO {
     private String firstname;
     private String lastname;
     private String email;
-    private String pictures;
+    private String picture;
     private String password;
     private List<Contact> contacts;
 
@@ -25,7 +25,7 @@ public class UserDTO {
         userDTO.setFirstname(user.getFirstname());
         userDTO.setLastname(user.getLastname());
         userDTO.setEmail(user.getEmail());
-        userDTO.setPictures(user.getPictures());
+        userDTO.setPicture(user.getPicture());
         userDTO.setPassword(user.getPassword());
         userDTO.setContacts(user.getContacts());
         return userDTO;

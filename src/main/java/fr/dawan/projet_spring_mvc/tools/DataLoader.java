@@ -94,7 +94,7 @@ public class DataLoader implements CommandLineRunner {
         user.setLastname("Bonisseur De La Bath");
         user.setEmail("hubert.bdlb@example.com");
         user.setPassword(passwordHasher.encode("aaAA11@@"));
-        user.setPictures("https://picsum.photos/seed/200/300");
+        user.setPicture("https://picsum.photos/seed/200/300");//
         userRepository.save(user);
     }
 }

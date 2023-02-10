@@ -2,7 +2,6 @@ package fr.dawan.projet_spring_mvc.services;
 
 import fr.dawan.projet_spring_mvc.dto.ContactDTO;
 import fr.dawan.projet_spring_mvc.entities.Contact;
-import fr.dawan.projet_spring_mvc.repositories.ContactAffilateRepository;
 import fr.dawan.projet_spring_mvc.repositories.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -45,7 +44,7 @@ public class ContactService {
 
 
     public ContactDTO save(ContactDTO contactDTO){
-        return ContactDTO.convertFromEntity(contactRepository.save(Contact.ConvertFromDTO(contactDTO)));
+        return ContactDTO.convertFromEntity(contactRepository.save(Contact.convertFromDTO(contactDTO)));
     }
 
 
