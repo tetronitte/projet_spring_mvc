@@ -45,19 +45,12 @@ public class ContactController {
         return "edit-contact";
     }
 
-
     @PostMapping("/editContact/{id}")
     public String contactChanged(@ModelAttribute ContactDTO contact) {
         contactService.save(contact);
         return "redirect:/contact/getAll";
     }
 
-
-
-
-
-
-    //ADD CONTACT
     @PostMapping(path = "/getAll")
     public String search(@RequestParam String search, Model model, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
