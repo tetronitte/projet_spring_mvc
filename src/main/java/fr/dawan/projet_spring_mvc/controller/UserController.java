@@ -39,8 +39,6 @@ public class UserController {
         return "redirect:/contact/getAll";
     }
 
-
-
     @GetMapping("/login")
     public String login(HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
@@ -54,7 +52,7 @@ public class UserController {
         if (user.isPresent()) {
             session.setAttribute("user", user.get());
             session.setMaxInactiveInterval(10*60);
-            return "redirect:/user/edit";
+            return "redirect:/contact/getAll";
         }
         else {
             model.addAttribute("error","Identifiants incorrects");
@@ -68,8 +66,8 @@ public class UserController {
         return "redirect:/user/login";
     }
 
-    @GetMapping("/profil")
-    public String profil(Model model, HttpSession session) {
+    @GetMapping("/profile")
+    public String profile(Model model, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
         if(user == null) return "redirect:/user/login";
         model.addAttribute("user",user);
