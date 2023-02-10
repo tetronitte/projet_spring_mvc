@@ -3,6 +3,8 @@ package fr.dawan.projet_spring_mvc.dto;
 import fr.dawan.projet_spring_mvc.entities.Contact;
 import fr.dawan.projet_spring_mvc.entities.ContactAffiliate;
 import fr.dawan.projet_spring_mvc.entities.User;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,10 +17,16 @@ public class ContactDTO {
 
     private Long id;
     private User user;
+    @NotBlank
+    @Pattern(regexp = "^[\\s,.'\\-\\pL]+$", message = "Firstname error")
     private String firstname;
+    @NotBlank
+    @Pattern(regexp = "^[\\s,.'\\-\\pL]+$", message = "Lastname error")
     private String lastname;
     private String email;
     private String picture;
+    @NotBlank
+    @Pattern(regexp = "^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$", message = "invalid phone number")
     private String phone;
     private LocalDate birthday;
     private List<ContactAffiliate> contactAffiliateList;

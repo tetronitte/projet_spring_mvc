@@ -10,6 +10,7 @@
 <div th:insert="navbar :: navbar">  </div>
 
 <form action="#" th:action="@{/contact/editContact/{id}(id=${contact.id})}" th:object="${contact}" method="post">
+
 <div class="card" style="width: 50rem; border: 1px solid black; margin: auto">
   <div class="card-body" method="form">
     <div class="container rounded bg-white mt-5">

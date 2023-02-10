@@ -2,6 +2,8 @@ package fr.dawan.projet_spring_mvc.entities;
 
 import fr.dawan.projet_spring_mvc.dto.ContactDTO;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -27,7 +29,6 @@ public class Contact {
     private LocalDate birthday;
     @OneToMany(mappedBy = "contact")
     private List<ContactAffiliate> contactAffiliates = new ArrayList<>();
-
     public Contact(User user, String firstname, String lastname, String email, String picture, String phone, LocalDate birthday) {
         this.user = user;
         this.firstname = firstname;
