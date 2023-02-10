@@ -93,13 +93,16 @@ public class ContactController {
         UserDTO user = (UserDTO) session.getAttribute("user");
         if(user == null) return "redirect:/user/login";
         if (result.hasErrors()) {
+            System.out.println(result);
             model.addAttribute("contact", contactDTO);
             return "add-contact";
         }
+        if (contactDTO.getPictureFile().getOriginalFilename().equals("")) contactDTO.setPicture("99-998739_dale-engen-person-placeholder-hd-png-download.png");
+        else {
+            pictureService.savePicture(contactDTO.getPictureFile());
+            contactDTO.setPicture(contactDTO.getPictureFile().getOriginalFilename());
+        }
         contactDTO.setUser(User.convertFromDTO(user));
-        if (contactDTO.getPicture().equals("")) contactDTO.setPicture("99-998739_dale-engen-person-placeholder-hd-png-download.png");
-        pictureService.savePicture(contactDTO.getPictureFile());
-        contactDTO.setPicture(contactDTO.getPictureFile().getOriginalFilename());
         contactService.save(contactDTO);
         return "redirect:/contact/getAll";
     }

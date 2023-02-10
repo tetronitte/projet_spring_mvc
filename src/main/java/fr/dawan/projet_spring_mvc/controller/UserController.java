@@ -40,9 +40,11 @@ public class UserController {
             model.addAttribute("user", new UserDTO());
             return "register";
         }
-        if (userDTO.getPicture().equals("")) userDTO.setPicture("99-998739_dale-engen-person-placeholder-hd-png-download.png");
-        pictureService.savePicture(userDTO.getPictureFile());
-        userDTO.setPicture(userDTO.getPictureFile().getOriginalFilename());
+        if (userDTO.getPictureFile().getOriginalFilename().equals("")) userDTO.setPicture("99-998739_dale-engen-person-placeholder-hd-png-download.png");
+        else {
+            pictureService.savePicture(userDTO.getPictureFile());
+            userDTO.setPicture(userDTO.getPictureFile().getOriginalFilename());
+        }
         userDTO.setPassword(userService.encodePassword(userDTO.getPassword()));
         userService.save(userDTO);
         return "redirect:/user/login";

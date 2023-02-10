@@ -13,7 +13,7 @@
 <header th:insert="navbar :: navbar">  </header>
 <section class="h-100 h-custom gradient-custom-2">
   <div class="container py-5 h-100">
-    <form action="#" th:action="@{/contact/addContact}" th:object="${contact}" method="post">
+    <form action="#" th:action="@{/contact/addContact}" th:object="${contact}" method="post" enctype="multipart/form-data">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-12">
         <div class="card card-registration card-registration-2" style="border-radius: 15px;">
@@ -59,7 +59,7 @@
                       <form>
                         <div class="form-group">
                           <label for="picture"> Add a picture</label>
-                          <input type="file" class="form-control-file" th:field="*{picture}" id="picture">
+                          <input type="file" class="form-control-file" th:field="*{pictureFile}" id="picture">
                         </div>
                       </form>
 
