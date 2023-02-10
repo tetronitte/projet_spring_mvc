@@ -19,8 +19,8 @@ public class ContactService {
     @Autowired
     private ContactAffiliateService contactAffiliateService;
 
-    public List<ContactDTO> getAll() {
-        return convertListFromEntities(contactRepository.findAll());
+    public List<ContactDTO> getAllByUserId(Long id) {
+        return convertListFromEntities(contactRepository.findAllByUserId(id));
     }
 
     public void delete(Long id) {
