@@ -46,6 +46,12 @@ public class ContactController {
     }
 
 
+    @PostMapping("/editContact/{id}")
+    public String contactChanged(@ModelAttribute ContactDTO contact) {
+        contactService.save(contact);
+        return "redirect:/contact/getAll";
+    }
+
 
 
 
