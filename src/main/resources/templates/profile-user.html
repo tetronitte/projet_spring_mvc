@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Profile</title>
+
+    <!-- MDB -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css"
+            rel="stylesheet"
+    />
+
+</head>
+<body>
+
+<section style="background-color: #eee;">
+
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <img th:src="${user.getPicture}" alt="avatar"
+                             class="rounded-circle img-fluid" style="width: 200px;">
+                        <h5 class="my-3" th:text="${user.firstname}+' '+${user.lastname}"></h5>
+                        <div class="d-flex justify-content-center mb-2">
+                            <form method="get" th:action="@{/user/edit}">
+                                <button type="submit" class="btn btn-primary">Edit profile</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-6">
+                <div class="card mb-4" >
+                    <div class="card-body" >
+                        <div class="row" >
+                            <div class="col-sm-3" >
+                                <p class="mb-0">Full Name</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0" th:text="${user.firstname}+' '+${user.lastname}"></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Email</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0" th:text="${user.email}"></p>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MDB -->
+<script
+        type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"
+></script>
+</body>
+</html>

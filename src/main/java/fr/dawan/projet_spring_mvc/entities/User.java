@@ -1,6 +1,5 @@
 package fr.dawan.projet_spring_mvc.entities;
 
-import fr.dawan.projet_spring_mvc.dto.ContactDTO;
 import fr.dawan.projet_spring_mvc.dto.UserDTO;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -20,12 +19,10 @@ public class User {
     private String firstname;
     private String lastname;
     private String email;
-    private String pictures;
+    private String picture;
     private String password;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Contact> contacts;
-
-
 
     //convert DTO to Entity
     public static User ConvertFromDTO(UserDTO userDTO) {
@@ -34,7 +31,7 @@ public class User {
         user.setFirstname(userDTO.getFirstname());
         user.setLastname(userDTO.getLastname());
         user.setEmail(userDTO.getEmail());
-        user.setPictures(userDTO.getPictures());
+        user.setPicture(userDTO.getPicture());
         user.setPassword(userDTO.getPassword());
         user.setContacts(userDTO.getContacts());
         return user;

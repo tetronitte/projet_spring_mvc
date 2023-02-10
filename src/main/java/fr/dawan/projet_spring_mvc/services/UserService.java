@@ -29,4 +29,17 @@ public class UserService {
     public UserDTO save(UserDTO userDTO){
         return UserDTO.convertFromEntity(userRepository.save(User.ConvertFromDTO(userDTO)));
     }
+
+    public String encodePassword(String password) {
+        return passwordHasher.encode(password);
+    }
+
+    public UserDTO updateUser(UserDTO editUser, UserDTO user) {
+        user.setFirstname(editUser.getFirstname());
+        user.setLastname(editUser.getLastname());
+        user.setEmail(editUser.getEmail());
+        user.setPicture(editUser.getPicture());
+        user.setPassword(editUser.getPassword());
+        return UserDTO.convertFromEntity(userRepository.save(User.convertFromDTO(user)));
+    }
 }

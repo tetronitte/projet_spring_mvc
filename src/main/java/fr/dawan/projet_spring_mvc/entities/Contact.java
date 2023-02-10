@@ -44,7 +44,7 @@ public class Contact {
 
 
     //convert DTO to Entity
-    public static Contact ConvertFromDTO(ContactDTO contactDTO) {
+    public static Contact convertFromDTO(ContactDTO contactDTO) {
         Contact contact = new Contact();
         contact.setId(contactDTO.getId());
         contact.setFirstname(contactDTO.getFirstname());
