@@ -21,9 +21,7 @@ public class ContactController {
     @GetMapping(path = "/getAll")
     public String getAll(Model model, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
-        if(user == null) {
-            return "redirect:/user/login";
-        }
+        if(user == null) return "redirect:/user/login";
         List<ContactDTO> contacts = contactService.getAll();
         model.addAttribute("contacts", contacts);
         return "display-contact";
@@ -31,7 +29,9 @@ public class ContactController {
 
     // GET A SINGLE CONTACT VIEW PAGE
     @GetMapping(path = "/getContact/{id}")
-    public String getById(Model model, @PathVariable Long id) {
+    public String getById(Model model, @PathVariable Long id, HttpSession session) {
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if(user == null) return "redirect:/user/login";
         ContactDTO contact = contactService.getById(id);
         model.addAttribute("contact", contact);
         return "contact-detail-view";
@@ -39,14 +39,18 @@ public class ContactController {
 
     // EDIT A SINGLE CONTACT
     @GetMapping(path = "/editContact/{id}")
-    public String editById(Model model, @PathVariable String id) {
+    public String editById(Model model, @PathVariable String id, HttpSession session) {
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if(user == null) return "redirect:/user/login";
         ContactDTO contact = contactService.getById(Long.parseLong(id));
         model.addAttribute("contact", contact);
         return "edit-contact";
     }
 
     @PostMapping("/editContact/{id}")
-    public String contactChanged(@ModelAttribute ContactDTO contact) {
+    public String contactChanged(@ModelAttribute ContactDTO contact, Model model, HttpSession session) {
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if(user == null) return "redirect:/user/login";
         contactService.save(contact);
         return "redirect:/contact/getAll";
     }
@@ -54,9 +58,7 @@ public class ContactController {
     @PostMapping(path = "/getAll")
     public String search(@RequestParam String search, Model model, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
-        if(user == null) {
-            return "redirect:/user/login";
-        }
+        if(user == null) return "redirect:/user/login";
         List<ContactDTO> contacts = contactService.getSearch(search);
         model.addAttribute("contacts", contacts);
         return "display-contact";
@@ -66,21 +68,16 @@ public class ContactController {
     @GetMapping("/addContact")
     public String displayAddContactForm(Model model, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
-        if(user == null) {
-            return "redirect:/user/login";
-        }
+        if(user == null) return "redirect:/user/login";
         ContactDTO contactDTO = new ContactDTO();
         model.addAttribute("contact", contactDTO);
-
         return "add-contact";
     }
 
     @PostMapping(path="/addContact") // Map ONLY POST Requests
-    public String contactSubmitted(@ModelAttribute ContactDTO contactDTO, HttpSession session) {
+    public String contactSubmitted(@ModelAttribute ContactDTO contactDTO, HttpSession session, Model model) {
         UserDTO user = (UserDTO) session.getAttribute("user");
-        if(user == null) {
-            return "redirect:/user/login";
-        }
+        if(user == null) return "redirect:/user/login";
         contactService.save(contactDTO);
         return "redirect:/contact/getAll";
     }
@@ -88,9 +85,7 @@ public class ContactController {
     @PostMapping(path = "/delete")
     public String delete(@RequestParam("contact") Long id, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
-        if(user == null) {
-            return "redirect:/user/login";
-        }
+        if(user == null) return "redirect:/user/login";
         contactService.delete(id);
         return "redirect:/contact/getAll";
     }

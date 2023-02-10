@@ -1,11 +1,10 @@
 package fr.dawan.projet_spring_mvc.services;
 
-import fr.dawan.projet_spring_mvc.dto.ContactDTO;
 import fr.dawan.projet_spring_mvc.dto.UserDTO;
-import fr.dawan.projet_spring_mvc.entities.Contact;
 import fr.dawan.projet_spring_mvc.entities.User;
 import fr.dawan.projet_spring_mvc.repositories.UserRepository;
 import fr.dawan.projet_spring_mvc.tools.PasswordHasher;
+import fr.dawan.projet_spring_mvc.tools.Regex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +19,9 @@ public class UserService {
     @Autowired
     private PasswordHasher passwordHasher;
 
+    @Autowired
+    private Regex regex;
+
     public Optional<UserDTO> authenticate(String email, String password) {
         User user = userRepository.findByEmail(email);
         if (passwordHasher.matches(password, user.getPassword())) return Optional.of(UserDTO.convertFromEntity(user));
@@ -28,6 +30,10 @@ public class UserService {
 
     public UserDTO save(UserDTO userDTO){
         return UserDTO.convertFromEntity(userRepository.save(User.convertFromDTO(userDTO)));
+    }
+
+    public boolean regexPassword(String password) {
+        return regex.regexPassword(password);
     }
 
     public String encodePassword(String password) {
