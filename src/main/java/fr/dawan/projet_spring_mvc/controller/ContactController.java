@@ -49,6 +49,9 @@ public class ContactController {
 
 
 
+
+
+    //ADD CONTACT
     @PostMapping(path = "/getAll")
     public String search(@RequestParam String search, Model model, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");

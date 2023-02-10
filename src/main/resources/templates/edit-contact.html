@@ -8,7 +8,8 @@
 </head>
 <body>
 
-<div th:object="${contact}" class="card" style="width: 50rem; border: 1px solid black; margin: auto">
+<form action="#" th:action="@{/contact/addContactbyId}" th:object="${contact}" method="post">
+<div class="card" style="width: 50rem; border: 1px solid black; margin: auto">
   <div class="card-body" method="form">
     <div class="container rounded bg-white mt-5">
       <div class="row">
@@ -57,7 +58,7 @@
     </div>
   </div>
 </div>
-
+</form>
 
 </body>
 </html>
