@@ -24,7 +24,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Contact> contacts;
 
-    public static User convertFromDTO(UserDTO userDTO) {
+    //convert DTO to Entity
+    public static User ConvertFromDTO(UserDTO userDTO) {
         User user = new User();
         user.setId(userDTO.getId());
         user.setFirstname(userDTO.getFirstname());
