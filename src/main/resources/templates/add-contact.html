@@ -8,6 +8,7 @@
 </head>
 
 <body>
+<div th:insert="navbar :: navbar">  </div>
 <section class="h-100 h-custom gradient-custom-2">
   <div class="container py-5 h-100">
     <form action="#" th:action="@{/contact/addContact}" th:object="${contact}" method="post">
