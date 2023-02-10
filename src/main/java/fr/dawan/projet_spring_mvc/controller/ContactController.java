@@ -22,7 +22,7 @@ public class ContactController {
     public String getAll(Model model, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
         if(user == null) return "redirect:/user/login";
-        List<ContactDTO> contacts = contactService.getAll();
+        List<ContactDTO> contacts = contactService.getAllByUserId(user.getId());
         model.addAttribute("contacts", contacts);
         return "display-contact";
     }

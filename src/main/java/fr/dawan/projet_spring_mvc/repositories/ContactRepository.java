@@ -9,5 +9,6 @@ import java.util.List;
 @RepositoryRestResource(collectionResourceRel = "contact", path = "contact")
 public interface ContactRepository extends JpaRepository<Contact, Long> {
 
+    List<Contact> findAllByUserId(Long id);
     List<Contact> findByFirstnameContainingOrLastnameContainingOrEmailContainingOrPhoneContaining(String firstname, String lastname, String email, String phone);
 }
