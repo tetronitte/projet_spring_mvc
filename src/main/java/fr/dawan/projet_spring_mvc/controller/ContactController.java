@@ -2,6 +2,7 @@ package fr.dawan.projet_spring_mvc.controller;
 
 import fr.dawan.projet_spring_mvc.dto.ContactDTO;
 import fr.dawan.projet_spring_mvc.dto.UserDTO;
+import fr.dawan.projet_spring_mvc.entities.User;
 import fr.dawan.projet_spring_mvc.services.ContactService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +79,7 @@ public class ContactController {
     public String contactSubmitted(@ModelAttribute ContactDTO contactDTO, HttpSession session, Model model) {
         UserDTO user = (UserDTO) session.getAttribute("user");
         if(user == null) return "redirect:/user/login";
+        contactDTO.setUser(User.convertFromDTO(user));
         contactService.save(contactDTO);
         return "redirect:/contact/getAll";
     }
