@@ -86,8 +86,9 @@ public class UserController {
     public String edit(@ModelAttribute UserDTO editUser, Model model, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
         if (user == null) return "redirect:/user/login";
-        if (!editUser.getPassword().equals("")) editUser.setPassword(userService.encodePassword(editUser.getPassword()));
+        if (editUser.getPassword().equals("")) editUser.setPassword(user.getPassword());
+        else editUser.setPassword(userService.encodePassword(editUser.getPassword()));
         userService.updateUser(editUser, user);
-        return "redirect:/user/profil";
+        return "redirect:/user/profile";
     }
 }
