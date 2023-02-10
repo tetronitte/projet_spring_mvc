@@ -7,8 +7,10 @@
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"/>
 </head>
 <body>
+<header th:insert="navbar :: navbar">  </header>
 
 <form action="#" th:action="@{/contact/editContact/{id}(id=${contact.id})}" th:object="${contact}" method="post">
+
 <div class="card" style="width: 50rem; border: 1px solid black; margin: auto">
   <div class="card-body" method="form">
     <div class="container rounded bg-white mt-5">

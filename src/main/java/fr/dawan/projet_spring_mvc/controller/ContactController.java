@@ -6,9 +6,11 @@ import fr.dawan.projet_spring_mvc.entities.User;
 import fr.dawan.projet_spring_mvc.services.ContactService;
 import fr.dawan.projet_spring_mvc.services.PictureService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -63,12 +65,19 @@ public class ContactController {
     }
 
     @PostMapping("/editContact/{id}")
-    public String contactChanged(@ModelAttribute ContactDTO contact, Model model, HttpSession session) {
+    public String contactChanged(@Valid @ModelAttribute ContactDTO contact, BindingResult result, Model model, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
         if(user == null) return "redirect:/user/login";
+        contact.setUser(User.convertFromDTO(user));
+        if (result.hasErrors())
+        {
+            model.addAttribute("contact", contact);
+            return "edit-contact";
+        }
         contactService.save(contact);
         return "redirect:/contact/getAll";
-    }
+        }
+
 
    // POST FORM TO ADD CONTACT
     @GetMapping("/addContact")
@@ -80,9 +89,13 @@ public class ContactController {
     }
 
     @PostMapping(path="/addContact") // Map ONLY POST Requests
-    public String contactSubmitted(@ModelAttribute ContactDTO contactDTO, HttpSession session, Model model) throws IOException {
+    public String contactSubmitted(@ModelAttribute ContactDTO contactDTO, BindingResult result, HttpSession session, Model model) throws IOException {
         UserDTO user = (UserDTO) session.getAttribute("user");
         if(user == null) return "redirect:/user/login";
+        if (result.hasErrors()) {
+            model.addAttribute("contact", contactDTO);
+            return "add-contact";
+        }
         contactDTO.setUser(User.convertFromDTO(user));
         if (contactDTO.getPicture().equals("")) contactDTO.setPicture("99-998739_dale-engen-person-placeholder-hd-png-download.png");
         pictureService.savePicture(contactDTO.getPictureFile());
