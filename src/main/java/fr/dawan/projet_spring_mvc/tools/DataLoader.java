@@ -65,10 +65,10 @@ public class DataLoader implements CommandLineRunner {
     }
 
     private void insertContact() {
-        contacts.add(new Contact(user,faker.name().firstName(),faker.name().lastName(),faker.internet().emailAddress(),"https://picsum.photos/seed/"+rd.nextInt(1085)+"/200/300",faker.phoneNumber().cellPhone(),LocalDate.of(1995, 5, 20)));
-        contacts.add(new Contact(user,faker.name().firstName(),faker.name().lastName(),faker.internet().emailAddress(),"https://picsum.photos/seed/"+rd.nextInt(1085)+"/200/300",faker.phoneNumber().cellPhone(),LocalDate.of(1993, 2, 12)));
-        contacts.add(new Contact(user,faker.name().firstName(),faker.name().lastName(),faker.internet().emailAddress(),"https://picsum.photos/seed/"+rd.nextInt(1085)+"/200/300",faker.phoneNumber().cellPhone(),LocalDate.of(1970, 12, 29)));
-        contacts.add(new Contact(user,faker.name().firstName(),faker.name().lastName(),faker.internet().emailAddress(),"https://picsum.photos/seed/"+rd.nextInt(1085)+"/200/300",faker.phoneNumber().cellPhone(),LocalDate.of(1972, 10, 30)));
+        contacts.add(new Contact(user,faker.name().firstName(),faker.name().lastName(),faker.internet().emailAddress(),"99-998739_dale-engen-person-placeholder-hd-png-download.png",faker.phoneNumber().cellPhone(),LocalDate.of(1995, 5, 20)));
+        contacts.add(new Contact(user,faker.name().firstName(),faker.name().lastName(),faker.internet().emailAddress(),"99-998739_dale-engen-person-placeholder-hd-png-download.png",faker.phoneNumber().cellPhone(),LocalDate.of(1993, 2, 12)));
+        contacts.add(new Contact(user,faker.name().firstName(),faker.name().lastName(),faker.internet().emailAddress(),"99-998739_dale-engen-person-placeholder-hd-png-download.png",faker.phoneNumber().cellPhone(),LocalDate.of(1970, 12, 29)));
+        contacts.add(new Contact(user,faker.name().firstName(),faker.name().lastName(),faker.internet().emailAddress(),"99-998739_dale-engen-person-placeholder-hd-png-download.png",faker.phoneNumber().cellPhone(),LocalDate.of(1972, 10, 30)));
         contactRepository.saveAll(contacts);
     }
 
@@ -95,7 +95,7 @@ public class DataLoader implements CommandLineRunner {
         user.setLastname("Bonisseur De La Bath");
         user.setEmail("hubert.bdlb@example.com");
         user.setPassword(passwordHasher.encode("aaAA11@@"));
-        user.setPicture("https://picsum.photos/seed/"+rd.nextInt(1085)+"/200/300");//
+        user.setPicture("99-998739_dale-engen-person-placeholder-hd-png-download.png");
         userRepository.save(user);
     }
 }

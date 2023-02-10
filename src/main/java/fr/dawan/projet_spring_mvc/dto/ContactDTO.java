@@ -5,6 +5,7 @@ import fr.dawan.projet_spring_mvc.entities.ContactAffiliate;
 import fr.dawan.projet_spring_mvc.entities.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,6 +23,7 @@ public class ContactDTO {
     private String phone;
     private LocalDate birthday;
     private List<ContactAffiliate> contactAffiliateList;
+    private MultipartFile pictureFile;
 
     public static ContactDTO convertFromEntity(Contact contact) {
         ContactDTO contactDTO = new ContactDTO();

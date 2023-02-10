@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class UserDTO {
     private String picture;
     private String password;
     private List<Contact> contacts;
+    private MultipartFile pictureFile;
 
     public static UserDTO convertFromEntity(User user) {
         UserDTO userDTO = new UserDTO();

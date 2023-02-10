@@ -1,6 +1,7 @@
 package fr.dawan.projet_spring_mvc.controller;
 
 import fr.dawan.projet_spring_mvc.dto.UserDTO;
+import fr.dawan.projet_spring_mvc.services.PictureService;
 import fr.dawan.projet_spring_mvc.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -9,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Optional;
 
 @Controller
@@ -18,6 +21,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PictureService pictureService;
 
     @GetMapping("/addUser")
     public String displayAddUserForm(Model model, HttpSession session) {
@@ -28,15 +34,18 @@ public class UserController {
         return "register";
     }
 
-    @PostMapping(path="/addUser") // Map ONLY POST Requests
-    public String userSubmitted(@Valid @ModelAttribute UserDTO userDTO, BindingResult result, Model model) {
+    @PostMapping(path="/addUser")
+    public String userSubmitted(@Valid @ModelAttribute UserDTO userDTO, BindingResult result, Model model) throws IOException {
         if (result.hasErrors()) {
             model.addAttribute("user", new UserDTO());
             return "register";
         }
+        if (userDTO.getPicture().equals("")) userDTO.setPicture("99-998739_dale-engen-person-placeholder-hd-png-download.png");
+        pictureService.savePicture(userDTO.getPictureFile());
+        userDTO.setPicture(userDTO.getPictureFile().getOriginalFilename());
         userDTO.setPassword(userService.encodePassword(userDTO.getPassword()));
         userService.save(userDTO);
-        return "redirect:/contact/getAll";
+        return "redirect:/user/login";
     }
 
     @GetMapping("/login")

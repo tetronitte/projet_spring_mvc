@@ -4,12 +4,14 @@ import fr.dawan.projet_spring_mvc.dto.ContactDTO;
 import fr.dawan.projet_spring_mvc.dto.UserDTO;
 import fr.dawan.projet_spring_mvc.entities.User;
 import fr.dawan.projet_spring_mvc.services.ContactService;
+import fr.dawan.projet_spring_mvc.services.PictureService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -18,6 +20,9 @@ public class ContactController {
 
     @Autowired
     private ContactService contactService;
+
+    @Autowired
+    private PictureService pictureService;
 
     @GetMapping(path = "/getAll")
     public String getAll(Model model, HttpSession session) {
@@ -33,7 +38,6 @@ public class ContactController {
         UserDTO user = (UserDTO) session.getAttribute("user");
         if(user == null) return "redirect:/user/login";
         List<ContactDTO> contacts = contactService.getSearch(search);
-        contacts.stream().forEach(c -> System.out.println(c.getPicture()));
         model.addAttribute("contacts", contacts);
         return "display-contact";
     }
@@ -76,11 +80,13 @@ public class ContactController {
     }
 
     @PostMapping(path="/addContact") // Map ONLY POST Requests
-    public String contactSubmitted(@ModelAttribute ContactDTO contactDTO, HttpSession session, Model model) {
+    public String contactSubmitted(@ModelAttribute ContactDTO contactDTO, HttpSession session, Model model) throws IOException {
         UserDTO user = (UserDTO) session.getAttribute("user");
         if(user == null) return "redirect:/user/login";
         contactDTO.setUser(User.convertFromDTO(user));
-        if (contactDTO.getPicture().equals("")) contactDTO.setPicture(contactService.randomPicture());
+        if (contactDTO.getPicture().equals("")) contactDTO.setPicture("99-998739_dale-engen-person-placeholder-hd-png-download.png");
+        pictureService.savePicture(contactDTO.getPictureFile());
+        contactDTO.setPicture(contactDTO.getPictureFile().getOriginalFilename());
         contactService.save(contactDTO);
         return "redirect:/contact/getAll";
     }

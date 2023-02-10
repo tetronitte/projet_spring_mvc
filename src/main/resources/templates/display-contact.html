@@ -17,7 +17,7 @@
 </form>
 <div th:each="contact : ${contacts}" class="card" style="width: 18rem; border: 1px solid black;">
     <div class="card-body">
-        <img th:src="${contact.picture}" class="card-img-top" alt="" />
+        <img th:src="${'/pictures/'+contact.picture}" class="card-img-top" alt="" />
         <h5 class="card-title" th:text="${contact.firstname}+' '+${contact.lastname}"></h5>
         <p class="card-text" th:text="${contact.email}"></p>
         <p class="card-text" th:text="${contact.phone}"></p>
