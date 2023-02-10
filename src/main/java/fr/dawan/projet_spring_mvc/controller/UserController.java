@@ -1,15 +1,13 @@
 package fr.dawan.projet_spring_mvc.controller;
 
+import fr.dawan.projet_spring_mvc.dto.ContactDTO;
 import fr.dawan.projet_spring_mvc.dto.UserDTO;
 import fr.dawan.projet_spring_mvc.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -20,23 +18,43 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/addUser")
+    public String displayAddUserForm(Model model, HttpSession session) {
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if (user != null) {
+            return "redirect:/user/profile-infos";
+        }
+        UserDTO userDTO = new UserDTO();
+        model.addAttribute("user", userDTO);
+
+        return "register";
+    }
+
+    @PostMapping(path="/addUser") // Map ONLY POST Requests
+    public String userSubmitted(@ModelAttribute UserDTO userDTO, HttpSession session) {
+        userDTO.setPassword(userService.encodePassword(userDTO.getPassword()));
+        userService.save(userDTO);
+        return "redirect:/contact/getAll";
+    }
+
+
+
     @GetMapping("/login")
     public String login(HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
-        if(user != null) return "redirect:/contact/getAll";
+        if (user != null) return "redirect:/contact/getAll";
         else return "login";
     }
 
     @PostMapping("/login")
     public String login(@RequestParam("email") String email, @RequestParam("password") String password, HttpSession session, Model model) {
         Optional<UserDTO> user = userService.authenticate(email, password);
-        if(user.isPresent()) {
+        if (user.isPresent()) {
             session.setAttribute("user", user.get());
-            session.setMaxInactiveInterval(10*60);
+            session.setMaxInactiveInterval(10 * 60);
             return "redirect:/contact/getAll";
-        }
-        else {
-            model.addAttribute("error","Identifiants incorrects");
+        } else {
+            model.addAttribute("error", "Identifiants incorrects");
             return "redirect:/user/login";
         }
     }

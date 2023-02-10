@@ -1,6 +1,8 @@
 package fr.dawan.projet_spring_mvc.services;
 
+import fr.dawan.projet_spring_mvc.dto.ContactDTO;
 import fr.dawan.projet_spring_mvc.dto.UserDTO;
+import fr.dawan.projet_spring_mvc.entities.Contact;
 import fr.dawan.projet_spring_mvc.entities.User;
 import fr.dawan.projet_spring_mvc.repositories.UserRepository;
 import fr.dawan.projet_spring_mvc.tools.PasswordHasher;
@@ -22,5 +24,9 @@ public class UserService {
         User user = userRepository.findByEmail(email);
         if (passwordHasher.matches(password, user.getPassword())) return Optional.of(UserDTO.convertFromEntity(user));
         return Optional.empty();
+    }
+
+    public UserDTO save(UserDTO userDTO){
+        return UserDTO.convertFromEntity(userRepository.save(User.ConvertFromDTO(userDTO)));
     }
 }
