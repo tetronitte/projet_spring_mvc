@@ -8,6 +8,7 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,5 +54,10 @@ public class ContactService {
                 .stream()
                 .map(contact -> ContactDTO.convertFromEntity(contact))
                 .collect(Collectors.toList());
+    }
+
+    public String randomPicture() {
+        Random rd = new Random();
+        return "https://picsum.photos/seed/"+rd.nextInt(1085)+"/200/300";
     }
 }
