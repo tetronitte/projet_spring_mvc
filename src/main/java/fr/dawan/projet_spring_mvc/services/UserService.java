@@ -27,7 +27,7 @@ public class UserService {
     }
 
     public UserDTO save(UserDTO userDTO){
-        return UserDTO.convertFromEntity(userRepository.save(User.ConvertFromDTO(userDTO)));
+        return UserDTO.convertFromEntity(userRepository.save(User.convertFromDTO(userDTO)));
     }
 
     public String encodePassword(String password) {

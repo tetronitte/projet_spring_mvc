@@ -25,7 +25,7 @@ public class User {
     private List<Contact> contacts;
 
     //convert DTO to Entity
-    public static User ConvertFromDTO(UserDTO userDTO) {
+    public static User convertFromDTO(UserDTO userDTO) {
         User user = new User();
         user.setId(userDTO.getId());
         user.setFirstname(userDTO.getFirstname());
