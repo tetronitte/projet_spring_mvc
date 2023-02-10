@@ -1,7 +1,9 @@
 package fr.dawan.projet_spring_mvc.controller;
 
 import fr.dawan.projet_spring_mvc.dto.ContactDTO;
+import fr.dawan.projet_spring_mvc.dto.UserDTO;
 import fr.dawan.projet_spring_mvc.services.ContactService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +19,11 @@ public class ContactController {
     private ContactService contactService;
 
     @GetMapping(path = "/getAll")
-    public String getAll(Model model) {
+    public String getAll(Model model, HttpSession session) {
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if(user == null) {
+            return "redirect:/user/login";
+        }
         List<ContactDTO> contacts = contactService.getAll();
         model.addAttribute("contacts", contacts);
         return "display-contact";
@@ -44,7 +50,11 @@ public class ContactController {
 
 
     @PostMapping(path = "/getAll")
-    public String search(@RequestParam String search, Model model) {
+    public String search(@RequestParam String search, Model model, HttpSession session) {
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if(user == null) {
+            return "redirect:/user/login";
+        }
         List<ContactDTO> contacts = contactService.getSearch(search);
         model.addAttribute("contacts", contacts);
         return "display-contact";
@@ -52,8 +62,11 @@ public class ContactController {
 
    // POST FORM TO ADD CONTACT
     @GetMapping("/addContact")
-    public String displayAddContactForm(Model model){
-
+    public String displayAddContactForm(Model model, HttpSession session) {
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if(user == null) {
+            return "redirect:/user/login";
+        }
         ContactDTO contactDTO = new ContactDTO();
         model.addAttribute("contact", contactDTO);
 
@@ -61,13 +74,21 @@ public class ContactController {
     }
 
     @PostMapping(path="/addContact") // Map ONLY POST Requests
-    public String contactSubmitted(@ModelAttribute ContactDTO contactDTO) {
+    public String contactSubmitted(@ModelAttribute ContactDTO contactDTO, HttpSession session) {
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if(user == null) {
+            return "redirect:/user/login";
+        }
         contactService.save(contactDTO);
         return "redirect:/contact/getAll";
     }
 
     @PostMapping(path = "/delete")
-    public String delete(@RequestParam("contact") Long id) {
+    public String delete(@RequestParam("contact") Long id, HttpSession session) {
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if(user == null) {
+            return "redirect:/user/login";
+        }
         contactService.delete(id);
         return "redirect:/contact/getAll";
     }

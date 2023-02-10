@@ -6,6 +6,7 @@ import fr.dawan.projet_spring_mvc.repositories.AffiliateRepository;
 import fr.dawan.projet_spring_mvc.repositories.ContactAffilateRepository;
 import fr.dawan.projet_spring_mvc.repositories.ContactRepository;
 import fr.dawan.projet_spring_mvc.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -16,24 +17,24 @@ import java.util.Locale;
 import java.util.Random;
 
 @Component
-public class FakerInit implements CommandLineRunner {
+public class DataLoader implements CommandLineRunner {
 
-    private final UserRepository userRepository;
-    private final AffiliateRepository affiliateRepository;
-    private final ContactRepository contactRepository;
-    private final ContactAffilateRepository contactAffilateRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private AffiliateRepository affiliateRepository;
+    @Autowired
+    private ContactRepository contactRepository;
+    @Autowired
+    private ContactAffilateRepository contactAffilateRepository;
+    @Autowired
+    private PasswordHasher passwordHasher;
     private final Faker faker = new Faker(new Locale("fr"), new Random(2));
     private List<Affiliate> affiliates = new ArrayList<>();
     private List<Contact> contacts = new ArrayList<>();
     private List<ContactAffiliate> contactAffiliates = new ArrayList<>();
     private User user = new User();
 
-    public FakerInit(UserRepository userRepository, AffiliateRepository affiliateRepository, ContactRepository contactRepository, ContactAffilateRepository contactAffilateRepository) {
-        this.userRepository = userRepository;
-        this.affiliateRepository = affiliateRepository;
-        this.contactRepository = contactRepository;
-        this.contactAffilateRepository = contactAffilateRepository;
-    }
     @Override
     public void run(String... args) throws Exception {
         insertOwner();
@@ -70,10 +71,6 @@ public class FakerInit implements CommandLineRunner {
         contactRepository.saveAll(contacts);
     }
 
-    private ContactAffiliate createContactAffiliate(Contact contact, Contact contactAffiliated, Affiliate affiliate) {
-        return new ContactAffiliate(contact,contactAffiliated,affiliate);
-    }
-
     private void insertAffiliate() {
         affiliates.add(new Affiliate("Mère"));
         affiliates.add(new Affiliate("Père"));
@@ -93,10 +90,10 @@ public class FakerInit implements CommandLineRunner {
     }
 
     private void insertOwner() {
-        user.setFirstname(faker.name().firstName());
-        user.setLastname(faker.name().lastName());
-        user.setEmail(user.getFirstname()+user.getLastname()+"@example.com");
-        user.setPassword("aaAA11@@");
+        user.setFirstname("Hubert");
+        user.setLastname("Bonisseur De La Bath");
+        user.setEmail("hubert.bdlb@example.com");
+        user.setPassword(passwordHasher.encode("aaAA11@@"));
         user.setPictures("https://picsum.photos/seed/200/300");
         userRepository.save(user);
     }
