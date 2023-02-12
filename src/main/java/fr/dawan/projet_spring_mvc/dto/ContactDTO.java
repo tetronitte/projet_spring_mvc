@@ -27,7 +27,7 @@ public class ContactDTO {
     private String email;
     private String picture;
     @NotBlank
-    @Pattern(regexp = "^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$", message = "invalid phone number")
+    //@Pattern(regexp = "^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$", message = "invalid phone number")
     private String phone;
     private LocalDate birthday;
     private List<ContactAffiliate> contactAffiliateList;

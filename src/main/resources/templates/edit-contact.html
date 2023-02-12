@@ -9,7 +9,7 @@
 <body>
 <header th:insert="navbar :: navbar">  </header>
 
-<form action="#" th:action="@{/contact/editContact/{id}(id=${contact.id})}" th:object="${contact}" method="post">
+<form th:action="@{/contact/editContact/{id}(id=${contact.id})}" th:object="${contact}" method="post">
 
 <div class="card" style="width: 50rem; border: 1px solid black; margin: auto">
   <div class="card-body" method="form">
