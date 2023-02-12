@@ -29,7 +29,7 @@
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <div class="d-flex flex-row align-items-center back"><i
                                     class="fa fa-long-arrow-left mr-1 mb-1"></i>
-                                <h6><button class="btn btn-primary profile-button" type="button">Back to Home</button></h6>
+                                <h6><form th:action="@{/contact/getAll}" method="get"> <button class="btn btn-primary profile-button" type="submit">Back to contacts</button> </form></h6>
                             </div>
                             <form action="GET" th:action="@{/contact/editContact/{id}(id=${contact.id})}">
                             <h6><button class="btn btn-primary profile-button" type="submit">Edit Contact</button></h6>  </form>
